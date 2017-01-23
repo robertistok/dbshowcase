@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 export default class Group extends Component {
   componentDidMount() {
@@ -8,7 +9,7 @@ export default class Group extends Component {
   renderTable(group, i) {
     return (
       <tr key={i} onClick={() => console.log(group.id)}>
-        <td>{group.id}</td>
+        <td><Link to={`/group/${group.id}`}>{group.id}</Link></td>
         <td>{group.startYear}</td>
         <td>{group.avarageBirthYear}</td>
         <td>{group.students.length}</td>
