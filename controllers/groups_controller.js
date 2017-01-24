@@ -1,5 +1,6 @@
 const Group = require('../models/group');
 const Student = require('../models/student');
+const Course = require('../models/course');
 
 module.exports = {
   index(req, res, next) {
@@ -11,7 +12,7 @@ module.exports = {
   detailed(req, res, next) {
     const { id } = req.params;
     Group.findOne({ id: id })
-      .populate('students')
+      .populate('students courses')
       .then((group) => res.send(group))
       .catch(next);
   }
