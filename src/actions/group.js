@@ -3,7 +3,7 @@ import axios from 'axios';
 export const FETCH_GROUPS = 'FETCH GROUPS';
 export const FETCH_DETAILED_GROUP = 'FETCH_DETAILED_GROUP';
 
-const ROOT_URL = 'http://localhost:3010/api'
+const ROOT_URL = 'http://localhost:3010/api';
 
 export function fetchGroups() {
   return dispatch => {

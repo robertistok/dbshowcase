@@ -21,7 +21,7 @@ export default class Group extends Component {
 
     if (this.props.group.groups.length === 0) return <div>Loading</div>
     return (
-      <div className='container'>
+      <div>
         <table className='table table-bordered'>
           <thead>
             <tr>

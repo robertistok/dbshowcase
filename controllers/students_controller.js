@@ -5,7 +5,13 @@ module.exports = {
   getOne(req, res, next) {
     const { id } = req.params;
     Student.findOne({ identificationNumber: id })
-      .populate('grades')
+      .populate({
+        path: 'grades',
+        populate: {
+          path: 'course',
+          model: 'course',
+        }
+      })
       .then(student => res.send(student))
       .catch(next);
   }
