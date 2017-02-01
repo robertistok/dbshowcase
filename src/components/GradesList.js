@@ -21,6 +21,32 @@ export default class GradesList extends Component {
     )
   }
 
+  showGradesNumber() {
+    let total = this.props.grades.reduce((sum, item, index) => {
+      const { grade } = item;
+      if (grade in sum) {
+        sum[grade] += 1;
+      } else {
+        sum[grade] = 1;
+      }
+      return sum;
+    }, {})
+    console.log(total);
+    return (
+      <div className='col-md-3'>
+        {
+          Object.keys(total).map((i) => {
+            return (
+              <div className="alert alert-info">
+                It has <strong>{total[i]}</strong> grades of {i}
+              </div>
+            )
+          })
+        }
+      </div>
+    )
+  }
+
   handleChange(event) {
     const grade = this.props.grades.filter(g => g.course.name == event.target.value);
     console.log(grade);
@@ -31,7 +57,7 @@ export default class GradesList extends Component {
     const { grades } = this.props;
     return (
       <div className='row'>
-        <div className='col-md-4'>
+        <div className='col-md-3'>
           <div className='form-group'>
             <select className='form-control'
                 value={this.state.selectedGrade.course.name}
@@ -44,9 +70,12 @@ export default class GradesList extends Component {
             </select>
           </div>
         </div>
-        <div className='col-md-8'>
+
+        <div className='col-md-6'>
           {this.props.grades && this.renderGrade.bind(this)()}
         </div>
+
+        {this.props.grades && this.showGradesNumber.bind(this)()}
       </div>
 
     )
