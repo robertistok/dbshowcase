@@ -7,7 +7,7 @@ const app = express();
 mongoose.Promise = global.Promise;
 if(process.NODE_ENV !== 'test') {
   mongoose
-    .connect(process.env.MONGOLAB_URI)
+    .connect('mongodb://localhost/universocial')
     .then(() => console.log('DB Connected'))
     .catch((err) => console.log(err))
 }
