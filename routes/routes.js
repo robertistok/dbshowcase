@@ -5,5 +5,6 @@ module.exports = (app) => {
   app.get('/api/groups', GroupsController.index);
   app.get('/api/groups/:id', GroupsController.detailed);
 
+  app.get('/api/students', StudentsController.index);
   app.get('/api/students/:id', StudentsController.getOne);
 };

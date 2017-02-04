@@ -1,10 +1,11 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import Course from './Course';
 
 const CoursesTable = ({ courses }) => {
   return(
-    <table className='table table-bordered'>
+    <table className='table'>
       <thead>
         <tr>
           <th>Code</th>
