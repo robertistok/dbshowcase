@@ -12,30 +12,29 @@ const TeacherSchema = new Schema({
   gender: String,
   phone: Number,
   dateOfBirth: Date,
-
   identificationNumber: Number,
-  classes: [{
-    group: {
-      type: Schema.Types.ObjectId,
-      ref: 'group',
-    },
-    subject: {
-      type: Schema.Types.ObjectId,
-      ref: 'course',
-    },
-    type: {
-      type: String,
-      validate: {
-        validator: type => ['lecture, lab, project, seminar'].indexOf(type) > -1,
-        message: 'You can only assign a teacher the following type of teachings: lecture, lab, project or seminar',
+  teaching: [
+    {
+      subject: {
+        type: Schema.Types.ObjectId,
+        ref: 'course'
       },
-    },
-    attendance: {
-      type: Schema.Types.ObjectId,
-      ref: 'attendance',
-    },
-  }],
+      type: {
+        type: String,
+        required: true,
+        validate: {
+          validator: type => ['lecture', 'lab', 'project', 'seminar'].indexOf(type) > -1,
+          message: 'You can only assign a class of type lecture, lab, project or seminar',
+        }
+      }
+    }
+  ]
 });
+
+TeacherSchema.virtual('name').
+  get(function() {
+    return this.firstname + this.lastname
+  });
 
 const Teacher = mongoose.model('teacher', TeacherSchema);
 module.exports = Teacher;

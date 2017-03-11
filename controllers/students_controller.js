@@ -17,6 +17,7 @@ module.exports = {
   },
 
   index(req, res, next) {
+    let count = 0;
     Student.find({}, { grades: 1 })
       .populate({
         path: 'grades',
