@@ -1,6 +1,7 @@
 const GroupsController = require('../controllers/groups_controller');
 const StudentsController = require('../controllers/students_controller');
 const TeachersController = require('../controllers/teachers_controller');
+const CoursesController = require('../controllers/courses_controller');
 
 module.exports = (app) => {
   app.get('/api/groups', GroupsController.index);
@@ -11,4 +12,7 @@ module.exports = (app) => {
 
   app.post('/api/teachers/create', TeachersController.createTeacher);
   app.get('/api/teachers/getAll', TeachersController.getTeachers);
+  app.post('/api/teachers/assignteaching', TeachersController.assignTeaching);
+
+  app.get('/api/courses/getall', CoursesController.getAll);
 };

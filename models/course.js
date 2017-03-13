@@ -64,5 +64,21 @@ const CourseSchema = new Schema({
   }],
 });
 
+CourseSchema.virtual('teachingTypes')
+  .get(function() {
+    console.log(this)
+    const lecture = this.lecturePerWeek > 0 ? true : false;
+    const lab = this.labsPerWeek > 0 ? true : false;
+    const seminar = this.seminarsPerWeek > 0 ? true : false;
+    const project = this.projectsPerWeek > 0 ? true : false;
+
+    return {
+      lecture,
+      lab,
+      seminar,
+      project
+    }
+  })
+
 const Course = mongoose.model('course', CourseSchema);
 module.exports = Course;

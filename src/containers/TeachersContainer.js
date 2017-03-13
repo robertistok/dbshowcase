@@ -1,41 +1,46 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Teachers from '../components/Teachers';
-import { fetchTeachers } from '../actions/teacher';
+import * as teacherActions from '../actions/teacher';
+import * as modalActions from '../actions/modals';
 
-const showResults = values =>
-  new Promise(resolve => {
-    setTimeout(() => {  // simulate server latency
-      window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
-      resolve()
-    }, 500)
-  })
 
 class TeachersContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   componentDidMount() {
     this.props.fetchTeachers();
   }
 
+  handleSubmit(e) {
+    console.log(e);
+  }
+
   render() {
     return (
-      <Teachers onSubmit={showResults} {...this.props} />
+      <Teachers {...this.props} onSubmit={this.handleSubmit} changeTeacher={this.changeTeacher} />
     )
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    teachers: state.teachers
-  }
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    ...teacherActions,
+    ...modalActions
+  }, dispatch);
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
   return {
-    fetchTeachers() {
-      dispatch(fetchTeachers());
-    }
-  };
-};
+    teachers: state.teachers.all,
+    selectedTeacher: state.teachers.selected,
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(TeachersContainer);
